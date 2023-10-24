@@ -22,15 +22,16 @@ class LFUCache(BaseCaching):
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
             min_freq = min(self.frequency.values())
             lfu_items = [k for k, v in self.frequency.items() if v == min_freq]
-            
+
             if len(lfu_items) > 1:
-                lru_item = min(self.cache_data, key=lambda k: self.cache_data[k][1])
+                lru_item = min(
+                        self.cache_data, key=lambda k: self.cache_data[k][1])
                 lfu_items.remove(lru_item)
-                
+
                 print(f"DISCARD: {lru_item}")
                 del self.cache_data[lru_item]
                 del self.frequency[lru_item]
-            
+
             for lfu_item in lfu_items:
                 print(f"DISCARD: {lfu_item}")
                 del self.cache_data[lfu_item]
