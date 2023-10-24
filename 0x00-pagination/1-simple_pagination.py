@@ -7,7 +7,12 @@ import csv
 import math
 from typing import List
 
+
 def index_range(page, page_size):
+    """Takes two integer arguments page and page_size
+    and returns a tuple of size two containing a start index and an end index
+    corresponding to the range of indexes to return in a list for those
+    particular pagination parameters"""
     if page <= 0 or page_size <= 0:
         return None
 
@@ -37,15 +42,13 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-            """Takes two integer arguments page with default
-            value 1 and page_size with default value 10"""
-            if not (isinstance(page, int) and isinstance(
-                page_size, int) and  page > 0 and page_size > 0):
-                return []
-            start, end = index_range(page, page_size)
-            dataset = self.dataset()
+        """Takes two integer arguments page with default
+        value 1 and page_size with default value 10"""
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
 
-            if start >= len(dataset):
-                return []
-
-            return dataset[start:end]
+        start_index, end_index = index_range(page, page_size)
+        data = self.dataset()
+        if start_index >= len(data):
+            return []
+        return data[start_index:end_index]
