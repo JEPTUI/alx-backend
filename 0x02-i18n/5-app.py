@@ -65,7 +65,7 @@ def index():
     """
     simple flask app
     """
-    return render_template('2-index.html')
+    return render_template('5-index.html')
 
 
 if __name__ == '__main__':
